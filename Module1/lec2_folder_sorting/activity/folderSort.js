@@ -1,7 +1,7 @@
 let fs = require("fs");
 let extensionsMapping = require("./util.js");
 
-let testFolderPath = "./Download";
+let testFolderPath = "./activity";
 let allFiles = fs.readdirSync(testFolderPath);
 console.log(allFiles);
 for(let i = 0; i < allFiles.length; i++){
