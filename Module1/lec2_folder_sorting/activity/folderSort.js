@@ -1,7 +1,7 @@
 let fs = require("fs");
 let extensionsMapping = require("./util.js");
 
-let testFolderPath = "./Downloads";
+let testFolderPath = "./Download";
 let allFiles = fs.readdirSync(testFolderPath);
 //console.log(extensionsMapping);
 //for(let i = 0; i < allFiles.length; i++){
@@ -27,19 +27,34 @@ function checkExtensionFolder(extension){
     //return fs.existsSync(folderToBeChecked);
     return fs.existsSync(extensionFolderName);
 }
-function moveFile(file, extension){
-
-}
 function createExtensionFolderFolder(extension){
-    
+    let extensionFolderName = testFolderPath;
+    for(let key in extensionsMapping){
+        let extensions = extensionsMapping[key];
+        if(extensions.includes(extension)){
+            extensionFolderNAme = extensionFolderName +"/"+key;
+            break; 
+        }
+    }
+    let isFolderExist = fs.existsSync(extensionFolderName);
+    if(!isFolderExist){
+        fs.mkdirSync(extensionFolderNAme);
+    }
+    return extensionFolderName;
+}
+function moveFile(file, extensionFolderName){
+    let sourceFile = testFolderPath +"/"+ file;
+    let destinationFile = extensionFolderName + "/" + file;
+    fs.copyFileSync(sourcefile, destinationFile);
 }
 function sortFile(file){
     let extension = getExtension(file);
     let isFolder = checkExtensionFolder(extension);
-    if(isFolder){
-        console.log(File +"Extension Folder Exists !!!")
+    moveFile(file, extensionFolderName);
+    /*if(isFolder){
+        console.log(file +"Extension Folder Exists !!!")
     }
     else{
-        console.log(File + "Extension Folder does't Exists !!!");
-    }
+        console.log(file + "Extension Folder does't Exists !!!");
+    }*/
 }
